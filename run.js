@@ -23,7 +23,10 @@ async function run(){
         try {
             if(await job.getJobStatus()){
                 i = 0
-                const browser1 = await puppeteer.launch(/*{headless: false}*/);
+                const browser1 = await puppeteer.launch({
+                    //headless: false,
+                    args: ['--no-sandbox']
+                 });
                 const page = await browser1.newPage();
                 await page.setCacheEnabled(false);    
                 await ctrlNav.goto(page,"loginPage")    
@@ -36,7 +39,7 @@ async function run(){
             }
             await job.sleep(1000*60)
         } catch (error) {
-            
+            console.log(error)
         }
     } while (true);
 }
