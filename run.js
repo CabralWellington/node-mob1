@@ -9,6 +9,7 @@ const CtrlSla = require("./app/ctrl/ctrl_slatToDB")
 const moment = require('moment');
 const voidinfo = require('./app/ctrl/voids_info')
 const order = require('./app/ctrl/ctrl_Order')
+const CtrlTicketDeactive = require("./app/ctrl/ctrl_Ticket")
 
 run();
 
@@ -16,8 +17,9 @@ async function run(){
     /* opção de qual codigo vai executar
         option = A  -> Atualização de 800 atendimentos 
     */
-    const option = "B"
+    const option = "C"
     const runExecution = 5
+    var executar = 0
 
     do {
         try {
@@ -32,8 +34,13 @@ async function run(){
                 await ctrlNav.goto(page,"loginPage")    
                 do {
                     i++
-                    await ctrlRun(option, page);
-                    await job.sleep(5000)
+                    if(i!=5){
+                        await ctrlRun(option, page);
+                        await job.sleep(5000)
+                    }else{
+                        await ctrlRun("C", page);
+                        await job.sleep(5000)  
+                    }
                 } while (i!=runExecution);
                 browser1.close();
             }
@@ -41,6 +48,9 @@ async function run(){
         } catch (error) {
             console.log(error)
         }
+        executar++
+        console.log(executar)
+        await job.sleep(1000*60)
     } while (true);
 }
 
@@ -57,6 +67,25 @@ async function ctrlRun(runOption,page){
             await ctrlLogin.login(page)
             await order.run(page)
             await voidinfo.run(page);
+        break;
+        case "C":
+            await ctrlLogin.login(page)
+            await ctrlFilter.setFilter(page,"ticketActive")
+            await ctrlFilter.setFilter(page,"ticketActive2")
+            await CtrlTicketOpen.run(page,"Active")
+        break;
+        case "D":
+            await ctrlLogin.login(page)
+            await ctrlFilter.setFilter(page,"ticketActive")
+            await ctrlFilter.setFilter(page,"ticketActive2")
+            await ctrlFilter.setFilter(page,"ticketActive2")
+            await ctrlFilter.setFilter(page,"ticketActive2")
+            await CtrlTicketOpen.run(page,"Active")
+        break;
+        case "DEL":
+            await ctrlLogin.login(page);
+            await ctrlFilter.setFilter(page,"ticketDeactive")
+            await CtrlTicketDeactive.run(page,"Deactive")
         break;
         default:
         break;
