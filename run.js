@@ -4,12 +4,11 @@ const ctrlLogin = require('./app/ctrl/ctrl_Login')
 const ctrlNav = require('./app/ctrl/ctrl_Nav')
 const ctrlFilter = require('./app/ctrl/ctrl_Filter')
 const CtrlTicketOpen = require("./app/ctrl/ctrl_Ticket")
-const ctrl_TicketToDB = require("./app/db/ticketToDb")
 const CtrlSla = require("./app/ctrl/ctrl_slatToDB")
-const moment = require('moment');
 const voidinfo = require('./app/ctrl/voids_info')
 const order = require('./app/ctrl/ctrl_Order')
 const CtrlTicketDeactive = require("./app/ctrl/ctrl_Ticket")
+const info = require("./app/info/passwords");
 
 run();
 
@@ -17,7 +16,7 @@ async function run(){
     /* opção de qual codigo vai executar
         option = A  -> Atualização de 800 atendimentos 
     */
-    const option = "C"
+    const option = info.getOption();
     const runExecution = 5
     var executar = 0
 
@@ -38,7 +37,7 @@ async function run(){
                         await ctrlRun(option, page);
                         await job.sleep(5000)
                     }else{
-                        await ctrlRun("C", page);
+                        await ctrlRun(info.getOption2(), page);
                         await job.sleep(5000)  
                     }
                 } while (i!=runExecution);
@@ -47,6 +46,7 @@ async function run(){
             await job.sleep(1000*60)
         } catch (error) {
             console.log(error)
+            browser1.close();
         }
         executar++
         console.log(executar)
