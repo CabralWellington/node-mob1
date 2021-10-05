@@ -26,7 +26,7 @@ async function run(){
             if(await job.getJobStatus()){
                 i = 0
                 const browser1 = await puppeteer.launch({
-                    headless: false,
+                   // headless: false,
                     args: ['--no-sandbox']
                  });
                 const page = await browser1.newPage();
