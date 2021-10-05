@@ -9,6 +9,7 @@ const voidinfo = require('./app/ctrl/voids_info')
 const order = require('./app/ctrl/ctrl_Order')
 const CtrlTicketDeactive = require("./app/ctrl/ctrl_Ticket")
 const info = require("./app/info/passwords");
+const db = require("./app/db/db");
 
 run();
 
@@ -19,13 +20,13 @@ async function run(){
     const option = info.getOption();
     const runExecution = 5
     var executar = 0
-
+    db.connect();
     do {
         try {
             if(await job.getJobStatus()){
                 i = 0
                 const browser1 = await puppeteer.launch({
-                    //headless: false,
+                    headless: false,
                     args: ['--no-sandbox']
                  });
                 const page = await browser1.newPage();
