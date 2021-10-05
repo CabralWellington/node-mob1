@@ -20,7 +20,7 @@ async function run(){
     const option = info.getOption();
     const runExecution = 5
     var executar = 0
-    db.connect();
+    //db.connect();
     do {
         try {
             if(await job.getJobStatus()){
