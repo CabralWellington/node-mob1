@@ -46,7 +46,7 @@ async function run(){
             await job.sleep(1000*60)
         } catch (error) {
             console.log(error)
-            browser1.close();
+    
         }
         executar++
         console.log(executar)
