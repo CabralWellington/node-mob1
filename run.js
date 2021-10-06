@@ -43,7 +43,7 @@ async function run(){
                     }
                 } while (i!=runExecution);
                 browser1.close();
-            }
+            } 
             await job.sleep(1000*60)
         } catch (error) {
             console.log(error)
@@ -51,7 +51,8 @@ async function run(){
         }
         executar++
         console.log(executar)
-        await job.sleep(1000*60)
+        await job.sleep(1000)
+        global.gc
     } while (true);
 }
 
