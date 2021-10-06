@@ -22,9 +22,11 @@ async function run(){
     var executar = 0
     //db.connect();
     do {
+        global.gc();
         try {
             if(await job.getJobStatus()){
                 i = 0
+                global.gc();
                 const browser1 = await puppeteer.launch({
                    // headless: false,
                     args: ['--no-sandbox']
@@ -41,6 +43,7 @@ async function run(){
                         await ctrlRun(info.getOption2(), page);
                         await job.sleep(5000)  
                     }
+                    global.gc();
                 } while (i!=runExecution);
                 browser1.close();
             } 
