@@ -19,7 +19,7 @@ async function ctrlOrder(page){
                 //console.log(rows[index].tec_id)
                 await page.evaluate(val => $("#SmyowlIdKey").val(val).change(), rows[index].tec_id);
                 await page.waitForTimeout(10000);
-                //console.log(rows[index].nome_tec_setor)
+                console.log(rows[index].nome_tec_setor)
                 await conn.query('update atendimentos set atend_priorizacao = 0 where atend_status = "Aberto" and nome_tec = "'+ rows[index].nome_tec_setor+'"')
                 var size = await page.evaluate(val => document.querySelector("#tableAlarm > tbody").rows.length);
                 //console.log(size)
