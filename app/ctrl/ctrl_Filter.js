@@ -1,14 +1,14 @@
 var moment = require('moment'); // require
 
 async function setFilter(page,option){
-    const dateInit = "01/09/2021 00:00:01";
+    const dateInit = "15/09/2021 00:00:01";
     switch (option){
         case "ticketActive":
             await page.select('#TrackerTicketStatusCode', '')
             await page.select('#table_length > label > select', '800')
             await page.evaluate(val => document.querySelector("#StartDate").value = val, dateInit);
             await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
-            await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
+            //await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
             await page.waitForTimeout(1500);
             await page.evaluate(val => document.querySelector("#btnApply").click());
             await stopFilter(page);
@@ -18,12 +18,12 @@ async function setFilter(page,option){
             await page.evaluate(val => document.querySelector("#table_wrapper > div:nth-child(3) > div > div.pull-right > div > ul > li.next > a").click());
             await stopFilter(page);
         break
-
+ 
         case "ticketDeactive":
             await page.select('#TrackerTicketStatusCode', '')
             await page.select('#table_length > label > select', '800')
             await page.evaluate(val => document.querySelector("#StartDate").value = val, dateInit);
-            await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
+            //await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
             await page.evaluate(val => document.querySelector("#table > thead > tr > th:nth-child(5)").click());
             await page.waitForTimeout(1500);
             await page.evaluate(val => document.querySelector("#Active").value = "False");
