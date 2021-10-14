@@ -96,7 +96,7 @@ async function toSpeeak(text){
 async function startBrowser(){
     await job.sleep(5000)
     return puppeteer.launch({
-        headless: false,
+       // headless: false,
         args: ['--no-sandbox']
      })
 }
